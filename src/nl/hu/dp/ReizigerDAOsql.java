@@ -2,6 +2,7 @@ package nl.hu.dp;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReizigerDAOsql implements ReizigerDAO{
@@ -72,40 +73,87 @@ public class ReizigerDAOsql implements ReizigerDAO{
 
     @Override
     public Reiziger findById(int id) {
-        PreparedStatement statement = null;
+        PreparedStatement statement;
+        Reiziger reiziger = null;
         try {
             statement = connection.prepareStatement(
-                    "DELETE FROM reiziger WHERE reiziger_id = ?"
+                    "SELECT * FROM reiziger WHERE reiziger_id = ?"
             );
             statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
 
-            statement.executeUpdate();
+            if (resultSet.next()) {
+                int reiziger_id = resultSet.getInt("reiziger_id");
+                String voorletters = resultSet.getString("voorletters");
+                String tussenvoegsel = resultSet.getString("tussenvoegsel");
+                String achternaam = resultSet.getString("achternaam");
+                LocalDate geboortedatum = resultSet.getDate("geboortedatum").toLocalDate();
+
+                reiziger = new Reiziger(reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum);
+            }
+            resultSet.close();
             statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return reiziger;
     }
 
     @Override
     public List<Reiziger> findByGbdatum(LocalDate date) {
-        PreparedStatement statement = null;
+        PreparedStatement statement;
+        List<Reiziger> reizigers = new ArrayList<>();
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM reiziger WHERE geboortedatum = ?"
             );
-            statement.setDate(1, java.sql.Date.valueOf(reiziger.getGeboortedatum());
+            statement.setDate(1, java.sql.Date.valueOf(date));
 
-            statement.executeUpdate();
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int reiziger_id = resultSet.getInt("reiziger_id");
+                String voorletters = resultSet.getString("voorletters");
+                String tussenvoegsel = resultSet.getString("tussenvoegsel");
+                String achternaam = resultSet.getString("achternaam");
+                LocalDate geboortedatum = resultSet.getDate("geboortedatum").toLocalDate();
+
+                Reiziger reiziger = new Reiziger(reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum);
+                reizigers.add(reiziger);
+            }
+            resultSet.close();
             statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return reizigers;
     }
 
     @Override
     public List<Reiziger> findAll() {
-        return null;
+        PreparedStatement statement;
+        List<Reiziger> reizigers = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT * FROM reiziger"
+            );
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int reiziger_id = resultSet.getInt("reiziger_id");
+                String voorletters = resultSet.getString("voorletters");
+                String tussenvoegsel = resultSet.getString("tussenvoegsel");
+                String achternaam = resultSet.getString("achternaam");
+                LocalDate geboortedatum = resultSet.getDate("geboortedatum").toLocalDate();
+
+                Reiziger reiziger = new Reiziger(reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum);
+                reizigers.add(reiziger);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return reizigers;
     }
 }
