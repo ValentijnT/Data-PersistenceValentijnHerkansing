@@ -13,7 +13,7 @@ public class Main {
 
         try{
             Connection db = DriverManager.getConnection(url, user, password);
-            System.out.println("Verbinding met database succesvol");
+            System.out.println("Verbinding met database is succesvol");
 
             Statement stmt = db.createStatement();
 
