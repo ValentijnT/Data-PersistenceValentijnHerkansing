@@ -7,66 +7,40 @@ import java.util.List;
 public class Main {
     private static Connection connection;
     public static void main(String[] args) {
+        String url = "jdbc:postgresql://localhost/ovchip?";
+        String user = "postgres";
+        String password = "geheim";
+
         try{
-            Connection connection = getConnection();
-            ReizigerDAOsql reizigerDAOsql = new ReizigerDAOsql(connection);
+            Connection db = DriverManager.getConnection(url, user, password);
+            System.out.println("Verbinding met database is succesvol");
 
-            List<Reiziger> reizigers = reizigerDAOsql.findAll();
-            System.out.println("[Test] ReizigerDAO.findAll() geeft de volgende reizigers:");
-            for (Reiziger r : reizigers) {
-                System.out.println(r);
-            }
-            System.out.println();
+            Statement stmt = db.createStatement();
 
-            // Maak een nieuwe reiziger aan en persisteer deze in de database
-            LocalDate gbdatum = LocalDate.of(1981,3,14);
-            Reiziger sietske = new Reiziger(77, "S", "", "Boers", gbdatum);
-            System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
-            reizigerDAOsql.save(sietske);
-            reizigers = reizigerDAOsql.findAll();
-            System.out.println(reizigers.size() + " reizigers\n");
+            String query = "SELECT * FROM reiziger";
+            ResultSet rs = stmt.executeQuery(query);
 
-            closeConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
+            while (rs.next()){
+                int id = rs.getInt("reiziger_id");
+                String voorletters = rs.getString("voorletters");
+                String tussenvoegsel = rs.getString("tussenvoegsel");
+                String achternaam = rs.getString("achternaam");
+                String geboortedatum = rs.getString("geboortedatum").toString();
 
-    private static Connection getConnection() throws SQLException {
-        String url =
-                "jdbc:postgresql://localhost/ovchip?user=postgres&password=geheim";
-        connection = DriverManager.getConnection(url);
-        return connection;
-    }
+                if (tussenvoegsel == null){
+                    tussenvoegsel = "";
+                } else {
+                    tussenvoegsel = tussenvoegsel + " ";
+                }
 
-    private static void closeConnection() throws SQLException {
-        if (connection != null) {
-            connection.close();
-            connection = null;
-        }
-    }
-
-    private static void testConnection() throws SQLException {
-        getConnection();
-        String query = "SELECT * FROM reiziger;";
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet set = statement.executeQuery();
-        while (set != null && set.next()) {
-            String reiziger_id = set.getString("reiziger_id");
-            String voorletters = set.getString("voorletters");
-            String tussenvoegsel = set.getString("tussenvoegsel");
-            String achternaam = set.getString("achternaam");
-            String geboortedatum = set.getString("geboortedatum");
-
-            if(tussenvoegsel == null){
-                tussenvoegsel = "";
-            } else {
-                tussenvoegsel += " ";
+                System.out.println("#" + id + ": " + voorletters + ". " + tussenvoegsel + "" + achternaam + " (" + geboortedatum + ")");
             }
 
-            System.out.println("#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+" ("+geboortedatum+")");
+            rs.close();
+            stmt.close();
+            db.close();
+        } catch (Exception e){
+            System.out.println("Er is een fout opgetreden: " + e.getMessage());
         }
-        closeConnection();
     }
-
 }
