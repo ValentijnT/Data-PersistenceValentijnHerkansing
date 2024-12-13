@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa084dc1-be6f-4258-be1b-b2324123b41b" name="Changes" comment="P2">
+    <list default="true" id="fa084dc1-be6f-4258-be1b-b2324123b41b" name="Changes" comment="p1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/Reiziger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/P2/Reiziger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/ReizigerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/P2/ReizigerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/ReizigerDAOsql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/P2/ReizigerDAOsql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/S1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/OpdrachtenS/S1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
@@ -45,14 +45,13 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "Application.nl.hu.dp.Main.executor": "Run",
-    "Application.nl.hu.dp.OpdrachtenS.Main.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "p2",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/User/HBO ICT/IdeaProjects/DataAndPersistence - kopie",
+    "last_opened_file_path": "C:/Users/valen/IdeaProjects/DataAndPersistence/src/lib/postgresql-42.7.4.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -134,31 +133,33 @@
       <workItem from="1734120920751" duration="974000" />
       <workItem from="1734122377717" duration="2333000" />
     </task>
-    <task id="LOCAL-00001" summary="P1">
+    <task id="LOCAL-00001" summary="p1">
       <option name="closed" value="true" />
-      <created>1726649417137</created>
+      <created>1734125634315</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1726649417138</updated>
+      <updated>1734125634315</updated>
     </task>
-    <task id="LOCAL-00002" summary="P2">
-      <option name="closed" value="true" />
-      <created>1727253862056</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1727253862056</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="P1" />
-    <MESSAGE value="P2" />
-    <option name="LAST_COMMIT_MESSAGE" value="P2" />
+    <MESSAGE value="p1" />
+    <option name="LAST_COMMIT_MESSAGE" value="p1" />
   </component>
 </project>
