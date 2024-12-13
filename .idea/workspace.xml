@@ -16,6 +16,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -27,6 +28,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -63,6 +67,12 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\valen\IdeaProjects\DataAndPersistence\src\lib" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\valen\IdeaProjects\DataAndPersistence\src\nl\hu\dp\OpdrachtenS" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nl.hu.dp.P2H" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.nl.hu.dp.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -83,7 +93,7 @@
       <module name="DataAndPersistence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.hu.dp.*" />
+          <option name="PATTERN" value="nl.hu.dp.P2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,7 +124,14 @@
       <option name="presentableId" value="Default" />
       <updated>1725435918063</updated>
       <workItem from="1725435918760" duration="10070000" />
-      <workItem from="1726214614848" duration="5749000" />
+      <workItem from="1726214614848" duration="8222000" />
+      <workItem from="1727251514673" duration="5694000" />
+      <workItem from="1728483033841" duration="62843000" />
+      <workItem from="1729077601929" duration="61000" />
+      <workItem from="1729084179096" duration="794000" />
+      <workItem from="1729166021445" duration="3326000" />
+      <workItem from="1734120920751" duration="974000" />
+      <workItem from="1734122377717" duration="2333000" />
     </task>
     <task id="LOCAL-00001" summary="p1">
       <option name="closed" value="true" />

@@ -17,7 +17,7 @@ public class Main {
         try{
             Connection db = DriverManager.getConnection(url, user, password);
             System.out.println("Verbinding met database is succesvol");
-
+          
             testp1(db);
 
             ReizigerDAOsql reizigerDAO = new ReizigerDAOsql(db);
@@ -46,7 +46,6 @@ public class Main {
                 String tussenvoegsel = rs.getString("tussenvoegsel");
                 String achternaam = rs.getString("achternaam");
                 String geboortedatum = rs.getString("geboortedatum").toString();
-
                 if (tussenvoegsel == null){
                     tussenvoegsel = "";
                 } else {
