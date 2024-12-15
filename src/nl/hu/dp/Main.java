@@ -1,8 +1,6 @@
 package nl.hu.dp;
 
-import nl.hu.dp.domein.P2.Reiziger;
-import nl.hu.dp.domein.P2.ReizigerDAO;
-import nl.hu.dp.domein.P2.ReizigerDAOsql;
+import nl.hu.dp.domein.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,11 +15,14 @@ public class Main {
         try{
             Connection db = DriverManager.getConnection(url, user, password);
             System.out.println("Verbinding met database is succesvol");
-          
+
             testp1(db);
 
             ReizigerDAOsql reizigerDAO = new ReizigerDAOsql(db);
             testReizigerDAO(reizigerDAO);
+
+            AdresDAOPsql adresDAOPsql = new AdresDAOPsql(db);
+            testAdresDAO(adresDAOPsql, reizigerDAO);
 
             db.close();
         } catch (Exception e){
@@ -106,12 +107,78 @@ public class Main {
         reizigers = rdao.findAll();
         System.out.print("[Test] Na ReizigerDAO.delete() zijn er nog " + reizigers.size() + " reizigers\n");
 
-        //test of sietske echt is verijderd
+        //test of sietske echt is verwijderd
         Reiziger verwijderd = rdao.findById(77);
         if (verwijderd == null){
             System.out.println("[Test] Sietske is van de aardbodem verdwenen");
         } else {
             System.out.println("[Test] verdorrie er is iets fout want Sietske is er nog");
         }
+    }
+
+    private static void testAdresDAO(AdresDAO adao, ReizigerDAO rdao) throws SQLException {
+        System.out.println("\n---------- Test AdresDAO -------------");
+
+        // Maak een nieuwe reiziger aan en persisteer deze in de database voor Adres
+        Reiziger Valentijn = rdao.findById(69);
+        if(Valentijn == null){
+            String gbdatumV = "2003-09-26";
+            Valentijn = new Reiziger(69, "V", "", "Tollenaar", Date.valueOf(gbdatumV).toLocalDate());
+            rdao.save(Valentijn);
+        }
+
+        // Maak een nieuw adres aan en persisteer deze in de database
+        Adres adresNieuw = new Adres(77, "1234AB", "69", "Zeisterweg", "Zeist", Valentijn);
+        adao.save(adresNieuw);
+
+        //test findById
+        System.out.println("[Test] AdresDAO.findById(77) geeft het volgende adres: ");
+        Adres gevondenAdresById = adao.findById(77);
+        if (gevondenAdresById != null){
+            System.out.println(gevondenAdresById + "\n");
+        } else {
+            System.out.println("Geen adres met id 77\n");
+        }
+
+        //test update
+        gevondenAdresById.setHuisnummer("420");
+        gevondenAdresById.setStraat("Utrechtseweg");
+        gevondenAdresById.setWoonplaats("Utrecht");
+
+        System.out.println("[Test] AdresDAO.findById(77) geeft na update het volgende adres: ");
+        Adres gevondenAdresByIdUpdated = adao.findById(77);
+        if (gevondenAdresByIdUpdated != null){
+            System.out.println(gevondenAdresByIdUpdated + "\n");
+        } else {
+            System.out.println("Geen adres met id 77\n");
+        }
+
+        //test findByReiziger
+        System.out.println("[Test] AdresDAO.findByReiziger(Valentijn) geeft het volgende adres");
+        Adres gevondenDoorReiziger = adao.findByReiziger(Valentijn);
+        if (gevondenDoorReiziger != null){
+            System.out.println(gevondenDoorReiziger + "\n");
+        } else {
+            System.out.println("Geen adres met Reiziger valentijn\n");
+        }
+
+        //test delete
+//        System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
+//        adao.delete(adresNieuw);
+//        Adres gevondenAdresByIdDelete = adao.findById(77);
+//        if (gevondenAdresByIdDelete != null){
+//            System.out.println(gevondenAdresByIdDelete + "\n");
+//        } else {
+//            System.out.println("Geen adres met id 77\n");
+//        }
+
+//        //test findAll
+//        List<Adres> adressen = adao.findAll();
+//        System.out.println("[Test] AdresDAO.findAll() geeft de volgende adressen:");
+//        for (Adres a : adressen) {
+//            System.out.println(a);
+//        }
+//        System.out.println();
+
     }
 }

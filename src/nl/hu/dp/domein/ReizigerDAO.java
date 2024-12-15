@@ -1,6 +1,6 @@
-package nl.hu.dp.domein.P2;
+package nl.hu.dp.domein;
 
-import nl.hu.dp.domein.P2.Reiziger;
+import nl.hu.dp.domein.Reiziger;
 
 import java.time.LocalDate;
 import java.util.List;

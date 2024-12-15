@@ -1,6 +1,4 @@
-package nl.hu.dp.domein.P2;
-
-import nl.hu.dp.domein.P2.Reiziger;
+package nl.hu.dp.domein;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -9,6 +7,7 @@ import java.util.List;
 
 public class ReizigerDAOsql implements ReizigerDAO {
     private Connection connection;
+    private AdresDAO adresDAO;
 
     public ReizigerDAOsql(Connection connection){
         this.connection = connection;
@@ -28,6 +27,10 @@ public class ReizigerDAOsql implements ReizigerDAO {
 
             statement.executeUpdate();
             statement.close();
+
+            if(this.adresDAO != null){
+                this.adresDAO.save(reiziger.getAdres());
+            }
 
             return true;
         } catch (SQLException e) {
@@ -50,6 +53,11 @@ public class ReizigerDAOsql implements ReizigerDAO {
 
             statement.executeUpdate();
             statement.close();
+
+            if(this.adresDAO != null){
+                this.adresDAO.update(reiziger.getAdres());
+            }
+
             return true;
         } catch (SQLException e) {
             System.out.println("Error bij Reiziger Update: " + e.getMessage());
@@ -60,6 +68,10 @@ public class ReizigerDAOsql implements ReizigerDAO {
     @Override
     public boolean delete(Reiziger reiziger) {
         try {
+            if(this.adresDAO != null){
+                this.adresDAO.delete(reiziger.getAdres());
+            }
+
             PreparedStatement statement = connection.prepareStatement(
                     "DELETE FROM reiziger WHERE reiziger_id =?"
             );
@@ -84,13 +96,16 @@ public class ReizigerDAOsql implements ReizigerDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return new Reiziger(
-                rs.getInt("reiziger_id"),
-                rs.getString("voorletters"),
-                rs.getString("tussenvoegsel"),
-                rs.getString("achternaam"),
-                rs.getDate("geboortedatum").toLocalDate()
+                Reiziger reiziger = new Reiziger(
+                        rs.getInt("reiziger_id"),
+                        rs.getString("voorletters"),
+                        rs.getString("tussenvoegsel"),
+                        rs.getString("achternaam"),
+                        rs.getDate("geboortedatum").toLocalDate()
                 );
+                rs.close();
+                statement.close();
+                return reiziger;
             }
             rs.close();
             statement.close();
@@ -138,13 +153,14 @@ public class ReizigerDAOsql implements ReizigerDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                reizigers.add(new Reiziger(
+                Reiziger reiziger = new Reiziger(
                     rs.getInt("reiziger_id"),
                     rs.getString("voorletters"),
                     rs.getString("tussenvoegsel"),
                     rs.getString("achternaam"),
                     rs.getDate("geboortedatum").toLocalDate()
-                ));
+                );
+                reizigers.add(reiziger);
             }
             rs.close();
             statement.close();
