@@ -125,19 +125,22 @@ public class Main {
             String gbdatumV = "2003-09-26";
             Valentijn = new Reiziger(69, "V", "", "Tollenaar", Date.valueOf(gbdatumV).toLocalDate());
             rdao.save(Valentijn);
+            System.out.println("Reiziger Valentijn aangemaakt\n");
         }
 
         // Maak een nieuw adres aan en persisteer deze in de database
         Adres adresNieuw = new Adres(77, "1234AB", "69", "Zeisterweg", "Zeist", Valentijn);
         adao.save(adresNieuw);
-        System.out.println(adao.findById(adresNieuw.getId()));
+        System.out.println("[Test] nieuw adres aangemaakt en gekoppeld aan " + rdao.findById(Valentijn.getid()).getVoorletters() + " " + rdao.findById(Valentijn.getid()).getAchternaam() + ": " + adao.findById(adresNieuw.getId()));
+        System.out.println();
 
         //test update
         adresNieuw.setHuisnummer("420");
         adresNieuw.setStraat("Utrechtseweg");
         adresNieuw.setWoonplaats("Utrecht");
         adao.update(adresNieuw);
-        System.out.println(adao.findById(adresNieuw.getId()));
+        System.out.println("[Test] Adres aangepast " + adao.findById(adresNieuw.getId()));
+        System.out.println();
 
         //test delete
         System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
@@ -148,9 +151,19 @@ public class Main {
         } else {
             System.out.println("Adres bestaat nog: " + adao.findById(77));
         }
+        System.out.println();
 
         //test findByReiziger
         Adres testFindByReiziger = adao.findByReiziger(rdao.findById(5));
-        System.out.println(testFindByReiziger);
+        System.out.println("[Test] findByReiziger op basis van reizigerId: " + testFindByReiziger);
+        System.out.println();
+
+        //test AdresDAOPsql.findAll
+        List<Adres> adressen = adao.findAll();
+        System.out.println("[Test] AdresDAO.findAll() geeft de volgende adressen:");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+        System.out.println();
     }
 }

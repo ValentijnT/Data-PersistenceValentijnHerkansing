@@ -28,6 +28,10 @@ public class ReizigerDAOsql implements ReizigerDAO {
             statement.executeUpdate();
             statement.close();
 
+            if (reiziger.getAdres() != null) {
+                adresDAO.save(reiziger.getAdres());
+            }
+
             return true;
         } catch (SQLException e) {
             System.out.println("Error bij Reiziger Save: " + e.getMessage());

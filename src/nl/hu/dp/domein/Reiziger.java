@@ -77,6 +77,6 @@ public class Reiziger {
             tussenvoegsel += " ";
         }
 
-        return "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+", geb. "+geboortedatum + " " + "}";
+        return "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+", geb. "+geboortedatum + "}";
     }
 }

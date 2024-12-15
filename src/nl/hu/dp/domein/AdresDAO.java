@@ -8,5 +8,5 @@ public interface AdresDAO {
     public boolean delete(Adres adres);
     public Adres findById(int id);
     public Adres findByReiziger(Reiziger reiziger);
-//    public List<Adres> findAll();
+    public List<Adres> findAll();
 }

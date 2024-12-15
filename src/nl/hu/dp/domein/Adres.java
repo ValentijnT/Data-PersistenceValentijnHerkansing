@@ -78,6 +78,6 @@ public class Adres {
     }
 
     public String toString(){
-        return reiziger + ", Adres {#" + adres_id + " " + straat + " " + huisnummer + ", " + postcode + ", " + woonplaats + "}";
+        return reiziger + " woont op adres {#" + adres_id + " " + straat + " " + huisnummer + ", " + postcode + ", " + woonplaats + "}";
     }
 }
