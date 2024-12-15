@@ -1,4 +1,4 @@
-package nl.hu.dp.domein.P2;
+package nl.hu.dp.domein;
 
 import java.time.LocalDate;
 
@@ -8,6 +8,7 @@ public class Reiziger {
     private String tussenvoegsel;
     private String achternaam;
     private LocalDate geboortedatum;
+    private Adres adres;
 
     public Reiziger(){
 
@@ -61,6 +62,14 @@ public class Reiziger {
         this.reiziger_id = reiziger_id;
     }
 
+    public Adres getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adres adres) {
+        this.adres = adres;
+    }
+
     public String toString(){
         if(tussenvoegsel == null){
             tussenvoegsel = "";
@@ -68,7 +77,6 @@ public class Reiziger {
             tussenvoegsel += " ";
         }
 
-        String string = "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+" ("+geboortedatum+")" + "}";
-        return string;
+        return "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+", geb. "+geboortedatum + "}";
     }
 }

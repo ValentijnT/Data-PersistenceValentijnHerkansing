@@ -1,8 +1,6 @@
 package nl.hu.dp;
 
-import nl.hu.dp.domein.P2.Reiziger;
-import nl.hu.dp.domein.P2.ReizigerDAO;
-import nl.hu.dp.domein.P2.ReizigerDAOsql;
+import nl.hu.dp.domein.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,11 +15,14 @@ public class Main {
         try{
             Connection db = DriverManager.getConnection(url, user, password);
             System.out.println("Verbinding met database is succesvol");
-          
+
             testp1(db);
 
             ReizigerDAOsql reizigerDAO = new ReizigerDAOsql(db);
             testReizigerDAO(reizigerDAO);
+
+            AdresDAOPsql adresDAOPsql = new AdresDAOPsql(db);
+            testAdresDAO(adresDAOPsql, reizigerDAO);
 
             db.close();
         } catch (Exception e){
@@ -106,12 +107,63 @@ public class Main {
         reizigers = rdao.findAll();
         System.out.print("[Test] Na ReizigerDAO.delete() zijn er nog " + reizigers.size() + " reizigers\n");
 
-        //test of sietske echt is verijderd
+        //test of sietske echt is verwijderd
         Reiziger verwijderd = rdao.findById(77);
         if (verwijderd == null){
             System.out.println("[Test] Sietske is van de aardbodem verdwenen");
         } else {
             System.out.println("[Test] verdorrie er is iets fout want Sietske is er nog");
         }
+    }
+
+    private static void testAdresDAO(AdresDAO adao, ReizigerDAO rdao) throws SQLException {
+        System.out.println("\n---------- Test AdresDAO -------------");
+
+        // Maak een nieuwe reiziger aan en persisteer deze in de database voor Adres
+        Reiziger Valentijn = rdao.findById(69);
+        if(Valentijn == null){
+            String gbdatumV = "2003-09-26";
+            Valentijn = new Reiziger(69, "V", "", "Tollenaar", Date.valueOf(gbdatumV).toLocalDate());
+            rdao.save(Valentijn);
+            System.out.println("Reiziger Valentijn aangemaakt\n");
+        }
+
+        // Maak een nieuw adres aan en persisteer deze in de database
+        Adres adresNieuw = new Adres(77, "1234AB", "69", "Zeisterweg", "Zeist", Valentijn);
+        adao.save(adresNieuw);
+        System.out.println("[Test] nieuw adres aangemaakt en gekoppeld aan " + rdao.findById(Valentijn.getid()).getVoorletters() + " " + rdao.findById(Valentijn.getid()).getAchternaam() + ": " + adao.findById(adresNieuw.getId()));
+        System.out.println();
+
+        //test update
+        adresNieuw.setHuisnummer("420");
+        adresNieuw.setStraat("Utrechtseweg");
+        adresNieuw.setWoonplaats("Utrecht");
+        adao.update(adresNieuw);
+        System.out.println("[Test] Adres aangepast " + adao.findById(adresNieuw.getId()));
+        System.out.println();
+
+        //test delete
+        System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
+        adao.delete(adresNieuw);
+        Adres testAdresDelete = adao.findById(adresNieuw.getId());
+        if (testAdresDelete == null){
+            System.out.println("Adres succesvol verwijderd");
+        } else {
+            System.out.println("Adres bestaat nog: " + adao.findById(77));
+        }
+        System.out.println();
+
+        //test findByReiziger
+        Adres testFindByReiziger = adao.findByReiziger(rdao.findById(5));
+        System.out.println("[Test] findByReiziger op basis van reizigerId: " + testFindByReiziger);
+        System.out.println();
+
+        //test AdresDAOPsql.findAll
+        List<Adres> adressen = adao.findAll();
+        System.out.println("[Test] AdresDAO.findAll() geeft de volgende adressen:");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+        System.out.println();
     }
 }
