@@ -8,6 +8,7 @@ import java.util.List;
 public class ReizigerDAOsql implements ReizigerDAO {
     private Connection connection;
     private AdresDAO adresDAO;
+    private OVChipkaartDAO ovChipkaartDAO;
 
     public ReizigerDAOsql(Connection connection){
         this.connection = connection;

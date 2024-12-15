@@ -12,20 +12,23 @@ public class Main {
         String user = "postgres";
         String password = "geheim";
 
-        try{
+        try {
             Connection db = DriverManager.getConnection(url, user, password);
             System.out.println("Verbinding met database is succesvol");
 
             testp1(db);
 
             ReizigerDAOsql reizigerDAO = new ReizigerDAOsql(db);
-            testReizigerDAO(reizigerDAO);
+//            testReizigerDAO(reizigerDAO);
+//
+//            AdresDAOPsql adresDAOPsql = new AdresDAOPsql(db);
+//            testAdresDAO(adresDAOPsql, reizigerDAO);
 
-            AdresDAOPsql adresDAOPsql = new AdresDAOPsql(db);
-            testAdresDAO(adresDAOPsql, reizigerDAO);
+            OVChipkaartDAOPsql ovChipkaartDAOPsql = new OVChipkaartDAOPsql(db);
+            testOVChipkaartDAO(ovChipkaartDAOPsql, reizigerDAO);
 
             db.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Er is een fout opgetreden in de Main: " + e.getMessage());
         }
 
@@ -35,19 +38,19 @@ public class Main {
     private static void testp1(Connection connection) throws SQLException {
         System.out.println("\n---------- Test p1 -------------");
 
-        try{
+        try {
             Statement stmt = connection.createStatement();
 
             String query = "SELECT * FROM reiziger";
             ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("reiziger_id");
                 String voorletters = rs.getString("voorletters");
                 String tussenvoegsel = rs.getString("tussenvoegsel");
                 String achternaam = rs.getString("achternaam");
                 String geboortedatum = rs.getString("geboortedatum").toString();
-                if (tussenvoegsel == null){
+                if (tussenvoegsel == null) {
                     tussenvoegsel = "";
                 } else {
                     tussenvoegsel = tussenvoegsel + " ";
@@ -58,7 +61,7 @@ public class Main {
 
             rs.close();
             stmt.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Er is een fout opgetreden: " + e.getMessage());
         }
 
@@ -66,7 +69,7 @@ public class Main {
 
     /**
      * P2. Reiziger DAO: persistentie van een klasse
-     *
+     * <p>
      * Deze methode test de CRUD-functionaliteit van de Reiziger DAO
      *
      * @throws SQLException
@@ -95,7 +98,7 @@ public class Main {
         //test findById
         System.out.println("[Test] ReizigerDAO.findById(77) geeft de volgende reiziger: ");
         Reiziger gevondenReizigerById = rdao.findById(77);
-        if (gevondenReizigerById != null){
+        if (gevondenReizigerById != null) {
             System.out.println(gevondenReizigerById + "\n");
         } else {
             System.out.println("Geen reiziger met id 1\n");
@@ -109,7 +112,7 @@ public class Main {
 
         //test of sietske echt is verwijderd
         Reiziger verwijderd = rdao.findById(77);
-        if (verwijderd == null){
+        if (verwijderd == null) {
             System.out.println("[Test] Sietske is van de aardbodem verdwenen");
         } else {
             System.out.println("[Test] verdorrie er is iets fout want Sietske is er nog");
@@ -121,7 +124,7 @@ public class Main {
 
         // Maak een nieuwe reiziger aan en persisteer deze in de database voor Adres
         Reiziger Valentijn = rdao.findById(69);
-        if(Valentijn == null){
+        if (Valentijn == null) {
             String gbdatumV = "2003-09-26";
             Valentijn = new Reiziger(69, "V", "", "Tollenaar", Date.valueOf(gbdatumV).toLocalDate());
             rdao.save(Valentijn);
@@ -146,7 +149,7 @@ public class Main {
         System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
         adao.delete(adresNieuw);
         Adres testAdresDelete = adao.findById(adresNieuw.getId());
-        if (testAdresDelete == null){
+        if (testAdresDelete == null) {
             System.out.println("Adres succesvol verwijderd");
         } else {
             System.out.println("Adres bestaat nog: " + adao.findById(77));
@@ -165,5 +168,59 @@ public class Main {
             System.out.println(a);
         }
         System.out.println();
+    }
+
+    private static void testOVChipkaartDAO(OVChipkaartDAO odao, ReizigerDAO rdao) throws SQLException {
+        System.out.println("\n---------- Test OVChipkaartDAO -------------");
+
+        Reiziger Valentijn = rdao.findById(69);
+
+        //test Save
+        String geldigTot = "2021-12-12";
+        OVChipkaart ovChipkaartNieuw = new OVChipkaart(8, Date.valueOf(geldigTot).toLocalDate(), 2, 69, Valentijn);
+        odao.save(ovChipkaartNieuw);
+        System.out.println("[Test] nieuwe OvChipkaart aangemaakt en gekoppeld aan reiziger met id: " + ovChipkaartNieuw.getReiziger().getid());
+        System.out.println("[Test] " + ovChipkaartNieuw);
+        System.out.println();
+
+        //test update
+        ovChipkaartNieuw.setKlasse(1);
+        ovChipkaartNieuw.setSaldo(420);
+        ovChipkaartNieuw.setGeldig_tot(Date.valueOf("2020-12-12").toLocalDate());
+        odao.update(ovChipkaartNieuw);
+        System.out.println("[Test] OVChipkaart aangepast " + ovChipkaartNieuw);
+        System.out.println();
+
+        //test delete
+        System.out.println("[Test] OVChipkaartDAO.delete() verwijderd OVChipkaart ovChipkaartNieuw");
+        odao.delete(ovChipkaartNieuw);
+        OVChipkaart testOVChipkaartDelete = odao.findById(ovChipkaartNieuw.getKaart_nummer());
+        if (testOVChipkaartDelete == null) {
+            System.out.println("OVChipkaart succesvol verwijderd");
+        } else {
+            System.out.println("OVChipkaart bestaat nog: " + odao.findById(8));
+        }
+        System.out.println();
+
+        //test findByReiziger
+        int reiziger_id = 2;
+        List<OVChipkaart> testFindByReiziger = odao.findByReiziger(rdao.findById(reiziger_id));
+        System.out.println("[Test] findByReiziger op basis van reizigerId " + rdao.findById(reiziger_id).getid() + ": ");
+        for (OVChipkaart o : testFindByReiziger) {
+            System.out.println(o);
+        }
+        System.out.println();
+
+        //test attribuut in reiziger
+        OVChipkaart ovChipkaartNieuw2 = new OVChipkaart(8, Date.valueOf(geldigTot).toLocalDate(), 2, 69, Valentijn);
+        System.out.println(ovChipkaartNieuw2);
+        Valentijn.voegOVChipkaartToe(ovChipkaartNieuw2);
+        System.out.println(Valentijn.getOvChipkaarten());
+        System.out.println();
+
+        //test attribuut in OVChipkaart
+        ovChipkaartNieuw2.setReiziger(Valentijn);
+        ovChipkaartNieuw2.setReiziger(Valentijn);
+        System.out.println(Valentijn.getOvChipkaarten());
     }
 }
