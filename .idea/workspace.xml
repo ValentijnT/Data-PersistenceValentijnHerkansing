@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa084dc1-be6f-4258-be1b-b2324123b41b" name="Changes" comment="p3 1 a b c.a c.b cooked nu naar 2">
+    <list default="true" id="fa084dc1-be6f-4258-be1b-b2324123b41b" name="Changes" comment="p3 cooked en af">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/domein/Adres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/domein/Adres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/domein/AdresDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/domein/AdresDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/domein/AdresDAOPsql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/domein/AdresDAOPsql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/domein/Reiziger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/domein/Reiziger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/hu/dp/domein/ReizigerDAOsql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/hu/dp/domein/ReizigerDAOsql.java" afterDir="false" />
     </list>
@@ -29,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="p2" />
+        <entry key="$PROJECT_DIR$" value="Main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,28 +43,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.nl.hu.dp.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;p3&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/valen/IdeaProjects/DataAndPersistence/src/lib/postgresql-42.7.4.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.nl.hu.dp.Main.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "P4",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/valen/IdeaProjects/DataAndPersistence/src/lib/postgresql-42.7.4.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\valen\IdeaProjects\DataAndPersistence\src\lib" />

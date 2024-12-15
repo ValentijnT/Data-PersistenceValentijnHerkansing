@@ -1,6 +1,8 @@
 package nl.hu.dp.domein;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Reiziger {
     private int reiziger_id;
@@ -9,6 +11,7 @@ public class Reiziger {
     private String achternaam;
     private LocalDate geboortedatum;
     private Adres adres;
+    private List<OVChipkaart> ovChipkaarten = new ArrayList<>();
 
     public Reiziger(){
 
@@ -20,6 +23,14 @@ public class Reiziger {
         this.tussenvoegsel = tussenvoegsel;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
+    }
+
+    public List<OVChipkaart> getOvChipkaarten() {
+        return ovChipkaarten;
+    }
+
+    public void setOvChipkaarten(List<OVChipkaart> ovChipkaarten) {
+        this.ovChipkaarten = ovChipkaarten;
     }
 
     public void setVoorletters(String voorletters) {
@@ -68,6 +79,13 @@ public class Reiziger {
 
     public void setAdres(Adres adres) {
         this.adres = adres;
+    }
+
+    public void voegOVChipkaartToe(OVChipkaart ovChipkaart){
+        if (!ovChipkaarten.contains(ovChipkaart)){
+            ovChipkaarten.add(ovChipkaart);
+            ovChipkaart.setReiziger(this);
+        }
     }
 
     public String toString(){
