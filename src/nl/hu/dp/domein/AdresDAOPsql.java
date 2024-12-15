@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AdresDAOPsql implements AdresDAO{
     private Connection connection;
+    private ReizigerDAO reizigerDAO;
 
     public AdresDAOPsql(Connection connection){
         this.connection = connection;
@@ -79,7 +80,7 @@ public class AdresDAOPsql implements AdresDAO{
     public Adres findById(int id) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM Adres WHERE adres_id = ?"
+                    "SELECT * FROM adres WHERE adres_id = ?"
             );
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -92,21 +93,20 @@ public class AdresDAOPsql implements AdresDAO{
                 String woonplaats = rs.getString("woonplaats");
                 int reizigerId = rs.getInt("reiziger_id");
 
-                Adres adres = new Adres(adresId, postcode, huisnummer, straat, woonplaats, null);
+                reizigerDAO = new ReizigerDAOsql(connection);
+                Reiziger reiziger = reizigerDAO.findById(reizigerId);
 
-                if (reizigerId > 0) {
-                    ReizigerDAOsql reizigerDAO = new ReizigerDAOsql(connection);
-                    Reiziger reiziger = reizigerDAO.findById(reizigerId);  // Zoek de Reiziger met dit ID
-                    adres.setReiziger(reiziger);  // Koppel de Reiziger aan het Adres
-                }
+                Adres adres = new Adres(adresId, postcode, huisnummer, straat, woonplaats, reiziger);
+
                 rs.close();
                 statement.close();
                 return adres;
             }
+
             rs.close();
             statement.close();
         } catch (SQLException e) {
-            System.out.println("Error bij Reiziger findById: " + e.getMessage());
+            System.out.println("Error bij Adres findById: " + e.getMessage());
         }
         return null;
     }
@@ -121,14 +121,14 @@ public class AdresDAOPsql implements AdresDAO{
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                Adres adres = new Adres(
-                        rs.getInt("adres_id"),
-                        rs.getString("postcode"),
-                        rs.getString("huisnummer"),
-                        rs.getString("straat"),
-                        rs.getString("woonplaats"),
-                        rs.getInt("reiziger_id")
-                );
+                int adresId = rs.getInt("adres_id");
+                String postcode = rs.getString("postcode");
+                String huisnummer = rs.getString("huisnummer");
+                String straat = rs.getString("straat");
+                String woonplaats = rs.getString("woonplaats");
+
+                Adres adres = new Adres(adresId, postcode, huisnummer, straat, woonplaats, reiziger);
+
                 rs.close();
                 statement.close();
                 return adres;
@@ -141,31 +141,7 @@ public class AdresDAOPsql implements AdresDAO{
         return null;
     }
 
-//    @Override
-//    public List<Adres> findAll() {
-//        List<Adres> adressen = new ArrayList<>();
-//        try {
-//            PreparedStatement statement = connection.prepareStatement(
-//                    "SELECT * FROM adres"
-//            );
-//            ResultSet rs = statement.executeQuery();
-//
-//            while (rs.next()) {
-//                Adres adres = new Adres(
-//                    rs.getInt("adres_id"),
-//                    rs.getString("postcode"),
-//                    rs.getString("huisnummer"),
-//                    rs.getString("straat"),
-//                    rs.getString("woonplaats"),
-//                    rs.getInt("reiziger_id")
-//                );
-//                adressen.add(adres);
-//            }
-//            rs.close();
-//            statement.close();
-//        } catch (SQLException e) {
-//            System.out.println("Error bij Adres findByAll: " + e.getMessage());
-//        }
-//        return adressen;
-//    }
+
+
+
 }

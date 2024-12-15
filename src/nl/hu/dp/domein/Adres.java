@@ -1,7 +1,7 @@
 package nl.hu.dp.domein;
 
 public class Adres {
-    private int id;
+    private int adres_id;
     private String postcode;
     private String huisnummer;
     private String straat;
@@ -13,7 +13,7 @@ public class Adres {
     }
 
     public Adres(int id, String postcode, String huisnummer, String straat, String woonplaats){
-        this.id = id;
+        this.adres_id = id;
         this.postcode = postcode;
         this.huisnummer = huisnummer;
         this.straat = straat;
@@ -21,7 +21,7 @@ public class Adres {
     }
 
     public Adres(int id, String postcode, String huisnummer, String straat, String woonplaats, Reiziger reiziger){
-        this.id = id;
+        this.adres_id = id;
         this.postcode = postcode;
         this.huisnummer = huisnummer;
         this.straat = straat;
@@ -30,11 +30,11 @@ public class Adres {
     }
 
     public int getId() {
-        return id;
+        return adres_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.adres_id = id;
     }
 
     public String getPostcode() {
@@ -78,6 +78,6 @@ public class Adres {
     }
 
     public String toString(){
-        return "Adres {#" + id + " " + straat + " " + huisnummer + ", " + postcode + ", " + woonplaats + "} - " + reiziger;
+        return reiziger + ", Adres {#" + adres_id + " " + straat + " " + huisnummer + ", " + postcode + ", " + woonplaats + "}";
     }
 }

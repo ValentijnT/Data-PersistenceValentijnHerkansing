@@ -77,11 +77,6 @@ public class Reiziger {
             tussenvoegsel += " ";
         }
 
-        String adresString = ", Geen adres bekend";
-        if (adres != null){
-            adresString = (", " + getAdres().toString());
-        }
-
-        return "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+", geb. "+geboortedatum+", " + adresString + "}";
+        return "Reiziger {#"+reiziger_id+": "+voorletters+". "+tussenvoegsel+achternaam+", geb. "+geboortedatum + " " + "}";
     }
 }

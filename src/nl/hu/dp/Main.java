@@ -130,55 +130,27 @@ public class Main {
         // Maak een nieuw adres aan en persisteer deze in de database
         Adres adresNieuw = new Adres(77, "1234AB", "69", "Zeisterweg", "Zeist", Valentijn);
         adao.save(adresNieuw);
-
-        //test findById
-        System.out.println("[Test] AdresDAO.findById(77) geeft het volgende adres: ");
-        Adres gevondenAdresById = adao.findById(77);
-        if (gevondenAdresById != null){
-            System.out.println(gevondenAdresById + "\n");
-        } else {
-            System.out.println("Geen adres met id 77\n");
-        }
+        System.out.println(adao.findById(adresNieuw.getId()));
 
         //test update
-        gevondenAdresById.setHuisnummer("420");
-        gevondenAdresById.setStraat("Utrechtseweg");
-        gevondenAdresById.setWoonplaats("Utrecht");
+        adresNieuw.setHuisnummer("420");
+        adresNieuw.setStraat("Utrechtseweg");
+        adresNieuw.setWoonplaats("Utrecht");
+        adao.update(adresNieuw);
+        System.out.println(adao.findById(adresNieuw.getId()));
 
-        System.out.println("[Test] AdresDAO.findById(77) geeft na update het volgende adres: ");
-        Adres gevondenAdresByIdUpdated = adao.findById(77);
-        if (gevondenAdresByIdUpdated != null){
-            System.out.println(gevondenAdresByIdUpdated + "\n");
+        //test delete
+        System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
+        adao.delete(adresNieuw);
+        Adres testAdresDelete = adao.findById(adresNieuw.getId());
+        if (testAdresDelete == null){
+            System.out.println("Adres succesvol verwijderd");
         } else {
-            System.out.println("Geen adres met id 77\n");
+            System.out.println("Adres bestaat nog: " + adao.findById(77));
         }
 
         //test findByReiziger
-        System.out.println("[Test] AdresDAO.findByReiziger(Valentijn) geeft het volgende adres");
-        Adres gevondenDoorReiziger = adao.findByReiziger(Valentijn);
-        if (gevondenDoorReiziger != null){
-            System.out.println(gevondenDoorReiziger + "\n");
-        } else {
-            System.out.println("Geen adres met Reiziger valentijn\n");
-        }
-
-        //test delete
-//        System.out.println("[Test] AdresDAO.delete() verwijderd adres adresNieuw");
-//        adao.delete(adresNieuw);
-//        Adres gevondenAdresByIdDelete = adao.findById(77);
-//        if (gevondenAdresByIdDelete != null){
-//            System.out.println(gevondenAdresByIdDelete + "\n");
-//        } else {
-//            System.out.println("Geen adres met id 77\n");
-//        }
-
-//        //test findAll
-//        List<Adres> adressen = adao.findAll();
-//        System.out.println("[Test] AdresDAO.findAll() geeft de volgende adressen:");
-//        for (Adres a : adressen) {
-//            System.out.println(a);
-//        }
-//        System.out.println();
-
+        Adres testFindByReiziger = adao.findByReiziger(rdao.findById(5));
+        System.out.println(testFindByReiziger);
     }
 }

@@ -28,10 +28,6 @@ public class ReizigerDAOsql implements ReizigerDAO {
             statement.executeUpdate();
             statement.close();
 
-            if(this.adresDAO != null){
-                this.adresDAO.save(reiziger.getAdres());
-            }
-
             return true;
         } catch (SQLException e) {
             System.out.println("Error bij Reiziger Save: " + e.getMessage());
@@ -54,10 +50,6 @@ public class ReizigerDAOsql implements ReizigerDAO {
             statement.executeUpdate();
             statement.close();
 
-            if(this.adresDAO != null){
-                this.adresDAO.update(reiziger.getAdres());
-            }
-
             return true;
         } catch (SQLException e) {
             System.out.println("Error bij Reiziger Update: " + e.getMessage());
@@ -68,10 +60,6 @@ public class ReizigerDAOsql implements ReizigerDAO {
     @Override
     public boolean delete(Reiziger reiziger) {
         try {
-            if(this.adresDAO != null){
-                this.adresDAO.delete(reiziger.getAdres());
-            }
-
             PreparedStatement statement = connection.prepareStatement(
                     "DELETE FROM reiziger WHERE reiziger_id =?"
             );
